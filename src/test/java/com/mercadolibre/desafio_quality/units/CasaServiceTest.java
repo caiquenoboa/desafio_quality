@@ -1,5 +1,6 @@
 package com.mercadolibre.desafio_quality.units;
 
+import com.mercadolibre.desafio_quality.dtos.ComodoDTO;
 import com.mercadolibre.desafio_quality.models.Comodo;
 import com.mercadolibre.desafio_quality.models.Propriedade;
 import com.mercadolibre.desafio_quality.services.CasaService;
@@ -10,8 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class CasaServiceTest {
@@ -39,7 +40,7 @@ class CasaServiceTest {
         comodoList2.add(new Comodo("Quarto", 3, 3));
         comodoList2.add(new Comodo("Banheiro", 2, 2));
         comodoList2.add(new Comodo("Sala", 3, 4));
-        propriedade2 = new Propriedade("Casa 1", "Cabral", comodoList2);
+        propriedade2 = new Propriedade("Casa 2", "Água Verde", comodoList2);
 
         List<Comodo> comodoList3 = new ArrayList<>();
         comodoList3.add(new Comodo("Cozinha", 4, 8));
@@ -47,8 +48,8 @@ class CasaServiceTest {
         comodoList3.add(new Comodo("Quarto 2", 4.5, 3));
         comodoList3.add(new Comodo("Banheiro", 2, 2));
         comodoList3.add(new Comodo("Sala", 5, 4));
-        comodoList3.add(new Comodo("Sala de Jantar", 5, 4));
-        propriedade3 = new Propriedade("Casa 1", "Cabral", comodoList3);
+        comodoList3.add(new Comodo("Sala de Jantar", 5, 8));
+        propriedade3 = new Propriedade("Casa 3", "Santa Candida", comodoList3);
 
     }
 
@@ -76,7 +77,7 @@ class CasaServiceTest {
 
         double d = casaService.calculeArea(propriedade3);
 
-        assertEquals(101.5, d);
+        assertEquals(121.5, d);
     }
 
     @Test
@@ -103,7 +104,89 @@ class CasaServiceTest {
 
         double d = casaService.calculeArea(propriedade3);
 
-        assertNotEquals(101.0, d);
+        assertNotEquals(121.0, d);
+    }
+
+
+
+
+
+
+
+
+    @Test
+    void calculeMaiorComodo1Test() {
+        init();
+        ComodoDTO expected = new ComodoDTO("Cozinha", 32);
+
+
+        ComodoDTO comodoDTO = casaService.calculeMaiorComodo(propriedade1);
+
+        assertEquals(expected.getRoom_name(), comodoDTO.getRoom_name());
+        assertEquals(expected.getRoom_area(), comodoDTO.getRoom_area());
+
+    }
+
+    @Test
+    void calculeMaiorComodo2Test() {
+        init();
+        ComodoDTO expected = new ComodoDTO("Sala", 12);
+
+
+        ComodoDTO comodoDTO = casaService.calculeMaiorComodo(propriedade2);
+
+        assertEquals(expected.getRoom_name(), comodoDTO.getRoom_name());
+        assertEquals(expected.getRoom_area(), comodoDTO.getRoom_area());
+    }
+
+    @Test
+    void calculeMaiorComodo3Test() {
+        init();
+        ComodoDTO expected = new ComodoDTO("Sala de Jantar", 40);
+
+
+        ComodoDTO comodoDTO = casaService.calculeMaiorComodo(propriedade3);
+
+        assertEquals(expected.getRoom_name(), comodoDTO.getRoom_name());
+        assertEquals(expected.getRoom_area(), comodoDTO.getRoom_area());
+    }
+
+
+    @Test
+    void calculeMaiorComodoNot1Test() {
+        init();
+        ComodoDTO expected = new ComodoDTO("Sala", 20);
+
+
+        ComodoDTO comodoDTO = casaService.calculeMaiorComodo(propriedade1);
+
+        assertNotEquals(expected.getRoom_name(), comodoDTO.getRoom_name());
+        assertNotEquals(expected.getRoom_area(), comodoDTO.getRoom_area());
+
+    }
+
+    @Test
+    void calculeMaiorComodoNot2Test() {
+        init();
+        ComodoDTO expected = new ComodoDTO("Sala", 16);
+
+
+        ComodoDTO comodoDTO = casaService.calculeMaiorComodo(propriedade2);
+
+        assertEquals(expected.getRoom_name(), comodoDTO.getRoom_name());
+        assertNotEquals(expected.getRoom_area(), comodoDTO.getRoom_area());
+    }
+
+    @Test
+    void calculeMaiorComodoNot3Test() {
+        init();
+        ComodoDTO expected = new ComodoDTO("Sala", 40);
+
+
+        ComodoDTO comodoDTO = casaService.calculeMaiorComodo(propriedade3);
+
+        assertNotEquals(expected.getRoom_name(), comodoDTO.getRoom_name());
+        assertEquals(expected.getRoom_area(), comodoDTO.getRoom_area());
     }
 
 }
