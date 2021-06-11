@@ -31,26 +31,26 @@ class CasaServiceTest {
         casaService = new CasaService();
 
         List<Comodo> comodoList1 = new ArrayList<>();
-        comodoList1.add(new Comodo("Cozinha", 4, 8));
-        comodoList1.add(new Comodo("Quarto", 4, 3));
-        comodoList1.add(new Comodo("Banheiro", 2, 2));
-        comodoList1.add(new Comodo("Sala", 5, 4));
+        comodoList1.add(new Comodo("Cozinha", 4.0, 8.0));
+        comodoList1.add(new Comodo("Quarto", 4.0, 3.0));
+        comodoList1.add(new Comodo("Banheiro", 2.0, 2.0));
+        comodoList1.add(new Comodo("Sala", 5.0, 4.0));
         propriedade1 = new Propriedade("Casa 1", "Cabral", comodoList1);
 
         List<Comodo> comodoList2 = new ArrayList<>();
-        comodoList2.add(new Comodo("Cozinha", 2, 2));
-        comodoList2.add(new Comodo("Quarto", 3, 3));
-        comodoList2.add(new Comodo("Banheiro", 2, 2));
-        comodoList2.add(new Comodo("Sala", 3, 4));
+        comodoList2.add(new Comodo("Cozinha", 2.0, 2.0));
+        comodoList2.add(new Comodo("Quarto", 3.0, 3.0));
+        comodoList2.add(new Comodo("Banheiro", 2.0, 2.0));
+        comodoList2.add(new Comodo("Sala", 3.0, 4.0));
         propriedade2 = new Propriedade("Casa 2", "Água Verde", comodoList2);
 
         List<Comodo> comodoList3 = new ArrayList<>();
-        comodoList3.add(new Comodo("Cozinha", 4, 8));
-        comodoList3.add(new Comodo("Quarto 1", 4, 3));
-        comodoList3.add(new Comodo("Quarto 2", 4.5, 3));
-        comodoList3.add(new Comodo("Banheiro", 2, 2));
-        comodoList3.add(new Comodo("Sala", 5, 4));
-        comodoList3.add(new Comodo("Sala de Jantar", 5, 8));
+        comodoList3.add(new Comodo("Cozinha", 4.0, 8.0));
+        comodoList3.add(new Comodo("Quarto 1", 4.0, 3.0));
+        comodoList3.add(new Comodo("Quarto 2", 4.5, 3.0));
+        comodoList3.add(new Comodo("Banheiro", 2.0, 2.0));
+        comodoList3.add(new Comodo("Sala", 5.0, 4.0));
+        comodoList3.add(new Comodo("Sala de Jantar", 5.0, 8.0));
         propriedade3 = new Propriedade("Casa 3", "Santa Cândida", comodoList3);
 
     }
