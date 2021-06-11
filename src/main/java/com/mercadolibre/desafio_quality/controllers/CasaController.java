@@ -23,6 +23,6 @@ public class CasaController {
     @PostMapping("/propriedades")
     public ResponseEntity<PropriedadeDTO> analyzeNotes(@RequestBody @Valid Propriedade propriedade){
         PropriedadeDTO propriedadeDTO = casaService.createDTO(propriedade);
-        return new ResponseEntity<>(propriedadeDTO, HttpStatus.CREATED);
+        return new ResponseEntity<>(propriedadeDTO, HttpStatus.OK);
     }
 }

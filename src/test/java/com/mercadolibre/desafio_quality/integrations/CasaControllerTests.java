@@ -63,9 +63,8 @@ public class CasaControllerTests {
                         .content(ObjectToJson.convertString(propriedade1))
                         .contentType(MediaType.APPLICATION_JSON)
         )
-                .andExpect(status().isCreated());
+                .andExpect(status().isOk());
     }
-
     @Test
     public void testEndpoint2() throws Exception {
         init();
@@ -75,9 +74,8 @@ public class CasaControllerTests {
                         .content(ObjectToJson.convertString(propriedade2))
                         .contentType(MediaType.APPLICATION_JSON)
         )
-                .andExpect(status().isCreated());
+                .andExpect(status().isOk());
     }
-
     @Test
     public void testEndpoint3() throws Exception {
         init();
@@ -87,7 +85,7 @@ public class CasaControllerTests {
                         .content(ObjectToJson.convertString(propriedade3))
                         .contentType(MediaType.APPLICATION_JSON)
         )
-                .andExpect(status().isCreated());
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -103,7 +101,6 @@ public class CasaControllerTests {
         )
                 .andExpect(status().isBadRequest());
     }
-
     @Test
     public void testEndpointExceptionNameBigger() throws Exception {
         init();
@@ -117,7 +114,6 @@ public class CasaControllerTests {
         )
                 .andExpect(status().isBadRequest());
     }
-
     @Test
     public void testEndpointExceptionNameNotAllowed() throws Exception {
         init();
@@ -145,7 +141,6 @@ public class CasaControllerTests {
         )
                 .andExpect(status().isBadRequest());
     }
-
     @Test
     public void testEndpointExceptionDistrictBigger() throws Exception {
         init();
@@ -159,7 +154,6 @@ public class CasaControllerTests {
         )
                 .andExpect(status().isBadRequest());
     }
-
     @Test
     public void testEndpointExceptionDistrictNotFound() throws Exception {
         init();
@@ -187,7 +181,6 @@ public class CasaControllerTests {
         )
                 .andExpect(status().isBadRequest());
     }
-
     @Test
     public void testEndpointExceptionRoomNameBigger() throws Exception {
         init();
@@ -201,7 +194,6 @@ public class CasaControllerTests {
         )
                 .andExpect(status().isBadRequest());
     }
-
     @Test
     public void testEndpointExceptionRoomNameNotAllowed() throws Exception {
         init();
@@ -216,7 +208,6 @@ public class CasaControllerTests {
                 .andExpect(status().isBadRequest());
     }
 
-
     @Test
     public void testEndpointExceptionRoomWidthNull() throws Exception {
         init();
@@ -230,7 +221,6 @@ public class CasaControllerTests {
         )
                 .andExpect(status().isBadRequest());
     }
-
     @Test
     public void testEndpointExceptionRoomWidthBigger() throws Exception {
         init();
@@ -258,7 +248,6 @@ public class CasaControllerTests {
         )
                 .andExpect(status().isBadRequest());
     }
-
     @Test
     public void testEndpointExceptionRoomLengthBigger() throws Exception {
         init();
@@ -272,7 +261,5 @@ public class CasaControllerTests {
         )
                 .andExpect(status().isBadRequest());
     }
-
-
 
 }

@@ -63,7 +63,6 @@ class CasaServiceTest {
 
         assertEquals(68.0, d);
     }
-
     @Test
     void calculeArea2Test() {
         init();
@@ -72,7 +71,6 @@ class CasaServiceTest {
 
         assertEquals(29.0, d);
     }
-
     @Test
     void calculeArea3Test() {
         init();
@@ -90,7 +88,6 @@ class CasaServiceTest {
 
         assertNotEquals(70.0, d);
     }
-
     @Test
     void calculeAreaNot2Test() {
         init();
@@ -99,7 +96,6 @@ class CasaServiceTest {
 
         assertNotEquals(30.0, d);
     }
-
     @Test
     void calculeAreaNot3Test() {
         init();
@@ -108,6 +104,7 @@ class CasaServiceTest {
 
         assertNotEquals(121.0, d);
     }
+
 
     @Test
     void calculePrice1Test() {
@@ -125,7 +122,6 @@ class CasaServiceTest {
 
         assertEquals(87000.0, d);
     }
-
     @Test
     void calculePrice3Test() {
         init();
@@ -151,7 +147,6 @@ class CasaServiceTest {
 
         assertNotEquals(90000.0, d);
     }
-
     @Test
     void calculePriceNot3Test() {
         init();
@@ -161,12 +156,6 @@ class CasaServiceTest {
         assertNotEquals(121000.0, d);
     }
 
-
-
-
-
-
-
     @Test
     void calculeMaiorComodo1Test() {
         init();
@@ -175,12 +164,9 @@ class CasaServiceTest {
 
         ComodoDTO comodoDTO = casaService.calculeMaiorComodo(propriedade1);
 
-        //Assertions.assertThat(expected).isEqualTo(comodoDTO);
-        assertEquals(expected.getRoom_name(), comodoDTO.getRoom_name());
-        assertEquals(expected.getRoom_area(), comodoDTO.getRoom_area());
+        assertEquals(expected.toString(), comodoDTO.toString());
 
     }
-
     @Test
     void calculeMaiorComodo2Test() {
         init();
@@ -189,10 +175,8 @@ class CasaServiceTest {
 
         ComodoDTO comodoDTO = casaService.calculeMaiorComodo(propriedade2);
 
-        assertEquals(expected.getRoom_name(), comodoDTO.getRoom_name());
-        assertEquals(expected.getRoom_area(), comodoDTO.getRoom_area());
+        assertEquals(expected.toString(), comodoDTO.toString());
     }
-
     @Test
     void calculeMaiorComodo3Test() {
         init();
@@ -201,10 +185,8 @@ class CasaServiceTest {
 
         ComodoDTO comodoDTO = casaService.calculeMaiorComodo(propriedade3);
 
-        assertEquals(expected.getRoom_name(), comodoDTO.getRoom_name());
-        assertEquals(expected.getRoom_area(), comodoDTO.getRoom_area());
+        assertEquals(expected.toString(), comodoDTO.toString());
     }
-
 
     @Test
     void calculeMaiorComodoNot1Test() {
@@ -218,7 +200,6 @@ class CasaServiceTest {
         assertNotEquals(expected.getRoom_area(), comodoDTO.getRoom_area());
 
     }
-
     @Test
     void calculeMaiorComodoNot2Test() {
         init();
@@ -230,7 +211,6 @@ class CasaServiceTest {
         assertEquals(expected.getRoom_name(), comodoDTO.getRoom_name());
         assertNotEquals(expected.getRoom_area(), comodoDTO.getRoom_area());
     }
-
     @Test
     void calculeMaiorComodoNot3Test() {
         init();
@@ -242,9 +222,6 @@ class CasaServiceTest {
         assertNotEquals(expected.getRoom_name(), comodoDTO.getRoom_name());
         assertEquals(expected.getRoom_area(), comodoDTO.getRoom_area());
     }
-
-
-
 
 
     @Test
@@ -261,12 +238,8 @@ class CasaServiceTest {
         List<ComodoDTO> comodoDTOList = casaService.createListComodoDTO(propriedade1.getRooms());
 
 
-        for (int i = 0; i < comodoDTOExpected.size(); i++){
-            assertEquals(comodoDTOExpected.get(i).getRoom_name(), comodoDTOList.get(i).getRoom_name());
-            assertEquals(comodoDTOExpected.get(i).getRoom_area(), comodoDTOList.get(i).getRoom_area());
-        }
+        assertEquals(comodoDTOExpected.toString(), comodoDTOList.toString());
     }
-
     @Test
     void calculeCreateComodoDTO2Test() {
         init();
@@ -280,13 +253,9 @@ class CasaServiceTest {
 
         List<ComodoDTO> comodoDTOList = casaService.createListComodoDTO(propriedade2.getRooms());
 
+        assertEquals(comodoDTOExpected.toString(), comodoDTOList.toString());
 
-        for (int i = 0; i < comodoDTOExpected.size(); i++){
-            assertEquals(comodoDTOExpected.get(i).getRoom_name(), comodoDTOList.get(i).getRoom_name());
-            assertEquals(comodoDTOExpected.get(i).getRoom_area(), comodoDTOList.get(i).getRoom_area());
-        }
     }
-
     @Test
     void calculeCreateComodoDTO3Test() {
         init();
@@ -302,14 +271,9 @@ class CasaServiceTest {
 
         List<ComodoDTO> comodoDTOList = casaService.createListComodoDTO(propriedade3.getRooms());
 
-
-        for (int i = 0; i < comodoDTOExpected.size(); i++){
-            assertEquals(comodoDTOExpected.get(i).getRoom_name(), comodoDTOList.get(i).getRoom_name());
-            assertEquals(comodoDTOExpected.get(i).getRoom_area(), comodoDTOList.get(i).getRoom_area());
-        }
+        assertEquals(comodoDTOExpected.toString(), comodoDTOList.toString());
 
     }
-
 
     @Test
     void calculeCreateComodoDTONot1Test() {
@@ -330,7 +294,6 @@ class CasaServiceTest {
             assertNotEquals(comodoDTOExpected.get(i).getRoom_area(), comodoDTOList.get(i).getRoom_area());
         }
     }
-
     @Test
     void calculeCreateComodoDTONot2Test() {
         init();
@@ -350,7 +313,6 @@ class CasaServiceTest {
             assertEquals(comodoDTOExpected.get(i).getRoom_area(), comodoDTOList.get(i).getRoom_area());
         }
     }
-
     @Test
     void calculeCreateComodoDTONot3Test() {
         init();
@@ -380,7 +342,6 @@ class CasaServiceTest {
         }
 
     }
-
 
 
 }
