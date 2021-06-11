@@ -3,11 +3,17 @@ package com.mercadolibre.desafio_quality.units;
 import com.mercadolibre.desafio_quality.dtos.ComodoDTO;
 import com.mercadolibre.desafio_quality.models.Comodo;
 import com.mercadolibre.desafio_quality.models.Propriedade;
+import com.mercadolibre.desafio_quality.repositories.BairrosRepository;
 import com.mercadolibre.desafio_quality.services.CasaService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -15,20 +21,24 @@ import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
-
+@ExtendWith(MockitoExtension.class)
 class CasaServiceTest {
+    @Mock
+    private BairrosRepository bairrosRepository;
 
-    CasaService casaService;
+    @InjectMocks
+    private CasaService casaService;
 
-    Propriedade propriedade1;
-    Propriedade propriedade2;
-    Propriedade propriedade3;
+    private static Propriedade propriedade1;
+    private static Propriedade propriedade2;
+    private static Propriedade propriedade3;
 
 
-    void init(){
-
-        casaService = new CasaService();
+    @BeforeAll
+    static void init(){
 
         List<Comodo> comodoList1 = new ArrayList<>();
         comodoList1.add(new Comodo("Cozinha", 4.0, 8.0));
@@ -57,15 +67,12 @@ class CasaServiceTest {
 
     @Test
     void calculeArea1Test() {
-        init();
-
         double d = casaService.calculeArea(propriedade1);
 
         assertEquals(68.0, d);
     }
     @Test
     void calculeArea2Test() {
-        init();
 
         double d = casaService.calculeArea(propriedade2);
 
@@ -73,7 +80,6 @@ class CasaServiceTest {
     }
     @Test
     void calculeArea3Test() {
-        init();
 
         double d = casaService.calculeArea(propriedade3);
 
@@ -82,7 +88,6 @@ class CasaServiceTest {
 
     @Test
     void calculeAreaNot1Test() {
-        init();
 
         double d = casaService.calculeArea(propriedade1);
 
@@ -90,7 +95,6 @@ class CasaServiceTest {
     }
     @Test
     void calculeAreaNot2Test() {
-        init();
 
         double d = casaService.calculeArea(propriedade2);
 
@@ -98,7 +102,6 @@ class CasaServiceTest {
     }
     @Test
     void calculeAreaNot3Test() {
-        init();
 
         double d = casaService.calculeArea(propriedade3);
 
@@ -108,7 +111,7 @@ class CasaServiceTest {
 
     @Test
     void calculePrice1Test() {
-        init();
+        when(bairrosRepository.findByName(any())).thenReturn(java.util.Optional.ofNullable(2000.0));
 
         double d = casaService.calculePrice(propriedade1);
 
@@ -116,49 +119,13 @@ class CasaServiceTest {
     }
     @Test
     void calculePrice2Test() {
-        init();
-
-        double d = casaService.calculePrice(propriedade2);
-
-        assertEquals(87000.0, d);
-    }
-    @Test
-    void calculePrice3Test() {
-        init();
-
-        double d = casaService.calculePrice(propriedade3);
-
-        assertEquals(121500.0, d);
-    }
-
-    @Test
-    void calculePriceNot1Test() {
-        init();
-
-        double d = casaService.calculePrice(propriedade1);
-
-        assertNotEquals(136500.0, d);
-    }
-    @Test
-    void calculePriceNot2Test() {
-        init();
-
-        double d = casaService.calculePrice(propriedade2);
-
-        assertNotEquals(90000.0, d);
-    }
-    @Test
-    void calculePriceNot3Test() {
-        init();
-
-        double d = casaService.calculePrice(propriedade3);
-
-        assertNotEquals(121000.0, d);
+        when(bairrosRepository.findByName(any())).thenReturn(java.util.Optional.ofNullable(null));
+        //casaService.calculePrice(propriedade2);
+        assertThrows(RuntimeException.class, () -> casaService.calculePrice(propriedade2));
     }
 
     @Test
     void calculeMaiorComodo1Test() {
-        init();
         ComodoDTO expected = new ComodoDTO("Cozinha", 32);
 
 
@@ -169,7 +136,6 @@ class CasaServiceTest {
     }
     @Test
     void calculeMaiorComodo2Test() {
-        init();
         ComodoDTO expected = new ComodoDTO("Sala", 12);
 
 
@@ -179,7 +145,6 @@ class CasaServiceTest {
     }
     @Test
     void calculeMaiorComodo3Test() {
-        init();
         ComodoDTO expected = new ComodoDTO("Sala de Jantar", 40);
 
 
@@ -190,7 +155,6 @@ class CasaServiceTest {
 
     @Test
     void calculeMaiorComodoNot1Test() {
-        init();
         ComodoDTO expected = new ComodoDTO("Sala", 20);
 
 
@@ -202,7 +166,6 @@ class CasaServiceTest {
     }
     @Test
     void calculeMaiorComodoNot2Test() {
-        init();
         ComodoDTO expected = new ComodoDTO("Sala", 16);
 
 
@@ -213,7 +176,6 @@ class CasaServiceTest {
     }
     @Test
     void calculeMaiorComodoNot3Test() {
-        init();
         ComodoDTO expected = new ComodoDTO("Sala", 40);
 
 
@@ -226,7 +188,6 @@ class CasaServiceTest {
 
     @Test
     void calculeCreateComodoDTO1Test() {
-        init();
 
         List<ComodoDTO> comodoDTOExpected = new ArrayList<>();
         comodoDTOExpected.add(new ComodoDTO("Cozinha", 32));
@@ -242,7 +203,6 @@ class CasaServiceTest {
     }
     @Test
     void calculeCreateComodoDTO2Test() {
-        init();
 
         List<ComodoDTO> comodoDTOExpected = new ArrayList<>();
         comodoDTOExpected.add(new ComodoDTO("Cozinha", 4));
@@ -258,7 +218,6 @@ class CasaServiceTest {
     }
     @Test
     void calculeCreateComodoDTO3Test() {
-        init();
 
         List<ComodoDTO> comodoDTOExpected = new ArrayList<>();
         comodoDTOExpected.add(new ComodoDTO("Cozinha", 32));
@@ -277,7 +236,6 @@ class CasaServiceTest {
 
     @Test
     void calculeCreateComodoDTONot1Test() {
-        init();
 
         List<ComodoDTO> comodoDTOExpected = new ArrayList<>();
         comodoDTOExpected.add(new ComodoDTO("Cozinha", 40));
@@ -296,7 +254,6 @@ class CasaServiceTest {
     }
     @Test
     void calculeCreateComodoDTONot2Test() {
-        init();
 
         List<ComodoDTO> comodoDTOExpected = new ArrayList<>();
         comodoDTOExpected.add(new ComodoDTO("Quarto", 4));
@@ -315,7 +272,6 @@ class CasaServiceTest {
     }
     @Test
     void calculeCreateComodoDTONot3Test() {
-        init();
 
         List<ComodoDTO> comodoDTOExpected = new ArrayList<>();
         comodoDTOExpected.add(new ComodoDTO("Cozinha", 32));

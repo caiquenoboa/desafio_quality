@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.ArrayList;
 import java.util.List;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -113,6 +114,8 @@ public class CasaControllerTests {
                         .contentType(MediaType.APPLICATION_JSON)
         )
                 .andExpect(status().isBadRequest());
+                //.andExpect(content().json());
+        //TODO aq
     }
     @Test
     public void testEndpointExceptionNameNotAllowed() throws Exception {

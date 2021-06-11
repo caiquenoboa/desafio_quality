@@ -1,5 +1,7 @@
 package com.mercadolibre.desafio_quality.dtos;
 
+import java.util.Objects;
+
 public class ComodoDTO {
     private String room_name;
     private double room_area;
@@ -18,6 +20,19 @@ public class ComodoDTO {
                 "room_name='" + room_name + '\'' +
                 ", room_area=" + room_area +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ComodoDTO)) return false;
+        ComodoDTO comodoDTO = (ComodoDTO) o;
+        return Double.compare(comodoDTO.room_area, room_area) == 0 && room_name.equals(comodoDTO.room_name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(room_name, room_area);
     }
 
     public String getRoom_name() {

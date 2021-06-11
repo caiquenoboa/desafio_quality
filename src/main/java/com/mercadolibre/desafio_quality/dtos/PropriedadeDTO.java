@@ -15,6 +15,7 @@ public class PropriedadeDTO {
     public PropriedadeDTO() {
     }
 
+    //TODO mudar para receber propriedade
     public PropriedadeDTO(String prop_name, String prop_district, List<ComodoDTO> rooms, double prop_area, double prop_price, ComodoDTO bigger_room) {
         this.prop_name = prop_name;
         this.prop_district = prop_district;

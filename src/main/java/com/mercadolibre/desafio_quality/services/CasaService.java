@@ -4,6 +4,7 @@ import com.mercadolibre.desafio_quality.dtos.ComodoDTO;
 import com.mercadolibre.desafio_quality.dtos.PropriedadeDTO;
 import com.mercadolibre.desafio_quality.models.Comodo;
 import com.mercadolibre.desafio_quality.models.Propriedade;
+import com.mercadolibre.desafio_quality.repositories.BairrosRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -11,19 +12,16 @@ import java.util.*;
 @Service
 public class CasaService {
 
-    HashMap<String, Double> bairrosLista;
+    private final BairrosRepository bairrosRepository;
 
-    public void initBairros(){
-        bairrosLista = new HashMap<>();
-        bairrosLista.put("Cabral", 2000.0);
-        bairrosLista.put("Água Verde", 3000.0);
-        bairrosLista.put("Batel", 3800.0);
-        bairrosLista.put("Boa Vista", 1400.0);
-        bairrosLista.put("Santa Cândida", 1000.0);
+    public CasaService(BairrosRepository bairrosRepository) {
+        this.bairrosRepository = bairrosRepository;
     }
 
+    //TODO ter um repository e ter um ComodoService
     public PropriedadeDTO createDTO(Propriedade propriedade){
-        PropriedadeDTO propriedadeDTO = new PropriedadeDTO(propriedade.getProp_name(),
+        PropriedadeDTO propriedadeDTO = new PropriedadeDTO(
+                propriedade.getProp_name(),
                 propriedade.getProp_district(),
                 createListComodoDTO(propriedade.getRooms()),
                 calculeArea(propriedade),
@@ -57,14 +55,11 @@ public class CasaService {
     }
 
     public double calculePrice(Propriedade propriedade){
-        initBairros();
-        double preco = 0;
-        try{
-            preco = bairrosLista.get(propriedade.getProp_district());
-        }
-        catch (Exception e){
-            throw new RuntimeException("O bairro " + propriedade.getProp_district() + " não está cadastrado!");
-        }
+
+
+        double preco = bairrosRepository.findByName(propriedade.getProp_district())
+                .orElseThrow(() -> new RuntimeException("O bairro " + propriedade.getProp_district() + " não está cadastrado!"));;
+
 
         return preco*calculeArea(propriedade);
     }
