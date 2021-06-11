@@ -1,5 +1,7 @@
 package com.mercadolibre.desafio_quality.models;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -10,7 +12,13 @@ public class Propriedade {
     @Size(max = 30, message = "O comprimento do nome não pode exceder 30 caracteres.")
     @Pattern(regexp = "[\\p{Lu}\\s].*", message = "O nome da propriedade deve começar com uma letra maiúscula.")
     private String prop_name;
+
+    @NotNull(message = "O bairro não pode estar vazio.")
+    @Size(max = 45, message = "O comprimento do bairro não pode exceder 45 caracteres.")
     private String prop_district;
+
+    @Valid
+    @NotEmpty(message = "Deve conter pelo menos um comodo")
     private List<Comodo> rooms;
 
     public Propriedade() {

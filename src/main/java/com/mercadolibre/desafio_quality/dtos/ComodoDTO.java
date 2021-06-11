@@ -12,6 +12,14 @@ public class ComodoDTO {
         this.room_area = room_area;
     }
 
+    @Override
+    public String toString() {
+        return "ComodoDTO{" +
+                "room_name='" + room_name + '\'' +
+                ", room_area=" + room_area +
+                '}';
+    }
+
     public String getRoom_name() {
         return room_name;
     }
