@@ -20,7 +20,7 @@ public class BairrosRepository {
 
 
     public Optional<Double> findByName(String name){
-        Optional<Double> price = Optional.ofNullable(bairrosLista.get(name));
-        return price;
+        //TODO ignorar letrar maiusculas
+        return Optional.ofNullable(bairrosLista.get(name));
     }
 }

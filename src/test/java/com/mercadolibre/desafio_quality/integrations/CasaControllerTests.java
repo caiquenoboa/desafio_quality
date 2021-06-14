@@ -28,6 +28,7 @@ public class CasaControllerTests {
     Propriedade propriedade2;
     Propriedade propriedade3;
 
+    @BeforeEach
     public void init(){
 
         List<Comodo> comodoList1 = new ArrayList<>();
@@ -57,8 +58,6 @@ public class CasaControllerTests {
 
     @Test
     public void testEndpoint1() throws Exception {
-        init();
-
         mockMvc.perform(
                 post("/propriedades")
                         .content(ObjectToJson.convertString(propriedade1))
@@ -68,7 +67,6 @@ public class CasaControllerTests {
     }
     @Test
     public void testEndpoint2() throws Exception {
-        init();
 
         mockMvc.perform(
                 post("/propriedades")
@@ -79,7 +77,6 @@ public class CasaControllerTests {
     }
     @Test
     public void testEndpoint3() throws Exception {
-        init();
 
         mockMvc.perform(
                 post("/propriedades")
@@ -91,7 +88,6 @@ public class CasaControllerTests {
 
     @Test
     public void testEndpointExceptionNameNull() throws Exception {
-        init();
 
         propriedade1.setProp_name(null);
 
@@ -104,7 +100,6 @@ public class CasaControllerTests {
     }
     @Test
     public void testEndpointExceptionNameBigger() throws Exception {
-        init();
 
         propriedade1.setProp_name("Casa da maria na cidade natal dos pais dela, que é são paulo");
 
@@ -119,8 +114,6 @@ public class CasaControllerTests {
     }
     @Test
     public void testEndpointExceptionNameNotAllowed() throws Exception {
-        init();
-
         propriedade1.setProp_name("casa 1");
 
         mockMvc.perform(
@@ -133,8 +126,6 @@ public class CasaControllerTests {
 
     @Test
     public void testEndpointExceptionDistrictNull() throws Exception {
-        init();
-
         propriedade1.setProp_district(null);
 
         mockMvc.perform(
@@ -146,8 +137,6 @@ public class CasaControllerTests {
     }
     @Test
     public void testEndpointExceptionDistrictBigger() throws Exception {
-        init();
-
         propriedade1.setProp_district("Bairro da cidade do Brasil que tem um nome muito grande");
 
         mockMvc.perform(
@@ -159,8 +148,6 @@ public class CasaControllerTests {
     }
     @Test
     public void testEndpointExceptionDistrictNotFound() throws Exception {
-        init();
-
         propriedade1.setProp_district("Bigorrilho");
 
         mockMvc.perform(
@@ -173,8 +160,6 @@ public class CasaControllerTests {
 
     @Test
     public void testEndpointExceptionRoomNameNull() throws Exception {
-        init();
-
         propriedade1.getRooms().get(0).setRoom_name(null);
 
         mockMvc.perform(
@@ -186,8 +171,6 @@ public class CasaControllerTests {
     }
     @Test
     public void testEndpointExceptionRoomNameBigger() throws Exception {
-        init();
-
         propriedade1.getRooms().get(0).setRoom_name("Cozinha Especifica para vizitantes");
 
         mockMvc.perform(
@@ -199,8 +182,6 @@ public class CasaControllerTests {
     }
     @Test
     public void testEndpointExceptionRoomNameNotAllowed() throws Exception {
-        init();
-
         propriedade1.getRooms().get(0).setRoom_name("cozinha");
 
         mockMvc.perform(
@@ -213,8 +194,6 @@ public class CasaControllerTests {
 
     @Test
     public void testEndpointExceptionRoomWidthNull() throws Exception {
-        init();
-
         propriedade1.getRooms().get(0).setRoom_width(null);
 
         mockMvc.perform(
@@ -226,8 +205,6 @@ public class CasaControllerTests {
     }
     @Test
     public void testEndpointExceptionRoomWidthBigger() throws Exception {
-        init();
-
         propriedade1.getRooms().get(0).setRoom_width(26.0);
 
         mockMvc.perform(
@@ -240,8 +217,6 @@ public class CasaControllerTests {
 
     @Test
     public void testEndpointExceptionRoomLengthNull() throws Exception {
-        init();
-
         propriedade1.getRooms().get(0).setRoom_length(null);
 
         mockMvc.perform(
@@ -253,8 +228,6 @@ public class CasaControllerTests {
     }
     @Test
     public void testEndpointExceptionRoomLengthBigger() throws Exception {
-        init();
-
         propriedade1.getRooms().get(0).setRoom_length(33.1);
 
         mockMvc.perform(

@@ -13,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -36,12 +37,14 @@ class CasaServiceUnitTest {
     @BeforeAll
     static void init(){
 
-        List<Comodo> comodoList1 = new ArrayList<>();
-        comodoList1.add(new Comodo("Cozinha", 4.0, 8.0));
-        comodoList1.add(new Comodo("Quarto", 4.0, 3.0));
-        comodoList1.add(new Comodo("Banheiro", 2.0, 2.0));
-        comodoList1.add(new Comodo("Sala", 5.0, 4.0));
-        propriedade1 = new Propriedade("Casa 1", "Cabral", comodoList1);
+        propriedade1 = new Propriedade("Casa 1", "Cabral",
+                Arrays.asList(
+                    new Comodo("Cozinha", 4.0, 8.0),
+                    new Comodo("Quarto", 4.0, 3.0),
+                    new Comodo("Banheiro", 2.0, 2.0),
+                    new Comodo("Sala", 5.0, 4.0)
+                )
+        );
 
         List<Comodo> comodoList2 = new ArrayList<>();
         comodoList2.add(new Comodo("Cozinha", 2.0, 2.0));
@@ -107,7 +110,7 @@ class CasaServiceUnitTest {
 
     @Test
     void calculePrice1Test() {
-        when(bairrosRepository.findByName(any())).thenReturn(java.util.Optional.ofNullable(2000.0));
+        when(bairrosRepository.findByName(any())).thenReturn(java.util.Optional.of(2000.0));
 
         double d = casaService.calculePrice(propriedade1);
 
@@ -115,7 +118,7 @@ class CasaServiceUnitTest {
     }
     @Test
     void calculePrice2Test() {
-        when(bairrosRepository.findByName(any())).thenReturn(java.util.Optional.ofNullable(3000.0));
+        when(bairrosRepository.findByName(any())).thenReturn(java.util.Optional.of(3000.0));
 
         double d = casaService.calculePrice(propriedade2);
 
@@ -123,7 +126,7 @@ class CasaServiceUnitTest {
     }
     @Test
     void calculePrice3Test() {
-        when(bairrosRepository.findByName(any())).thenReturn(java.util.Optional.ofNullable(1000.0));
+        when(bairrosRepository.findByName(any())).thenReturn(java.util.Optional.of(1000.0));
 
         double d = casaService.calculePrice(propriedade3);
 
@@ -132,7 +135,7 @@ class CasaServiceUnitTest {
 
     @Test
     void calculePriceNot1Test() {
-        when(bairrosRepository.findByName(any())).thenReturn(java.util.Optional.ofNullable(2000.0));
+        when(bairrosRepository.findByName(any())).thenReturn(java.util.Optional.of(2000.0));
 
         double d = casaService.calculePrice(propriedade1);
 
@@ -140,7 +143,7 @@ class CasaServiceUnitTest {
     }
     @Test
     void calculePriceNot2Test() {
-        when(bairrosRepository.findByName(any())).thenReturn(java.util.Optional.ofNullable(3000.0));
+        when(bairrosRepository.findByName(any())).thenReturn(java.util.Optional.of(3000.0));
 
         double d = casaService.calculePrice(propriedade2);
 
@@ -148,7 +151,7 @@ class CasaServiceUnitTest {
     }
     @Test
     void calculePriceNot3Test() {
-        when(bairrosRepository.findByName(any())).thenReturn(java.util.Optional.ofNullable(1000.0));
+        when(bairrosRepository.findByName(any())).thenReturn(java.util.Optional.of(1000.0));
 
         double d = casaService.calculePrice(propriedade3);
 
@@ -156,7 +159,7 @@ class CasaServiceUnitTest {
     }
     @Test
     void calculePriceNullTest() {
-        when(bairrosRepository.findByName(any())).thenReturn(java.util.Optional.ofNullable(null));
+        when(bairrosRepository.findByName(any())).thenReturn(java.util.Optional.empty());
         assertThrows(RuntimeException.class, () -> casaService.calculePrice(propriedade2));
     }
 

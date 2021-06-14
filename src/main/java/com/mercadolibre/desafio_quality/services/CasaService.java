@@ -19,22 +19,21 @@ public class CasaService {
     }
 
     public PropriedadeDTO createDTO(Propriedade propriedade){
-        PropriedadeDTO propriedadeDTO = new PropriedadeDTO(
+
+        return new PropriedadeDTO(
                 propriedade,
                 createListComodoDTO(propriedade.getRooms()),
                 calculeArea(propriedade),
                 calculePrice(propriedade),
                 calculeMaiorComodo(propriedade.getRooms())
         );
-
-        return propriedadeDTO;
     }
 
 
 
     public double calculeArea(Propriedade propriedade){
-        return propriedade.getRooms().stream().mapToDouble(obj -> calculeArea(obj))
-                .reduce(0.0, ( areaTotal, area) -> areaTotal + area);
+        return propriedade.getRooms().stream().mapToDouble(this::calculeArea)
+                .reduce(0.0, Double::sum);
     }
 
 
@@ -42,7 +41,8 @@ public class CasaService {
 
 
         double preco = bairrosRepository.findByName(propriedade.getProp_district())
-                .orElseThrow(() -> new RuntimeException("O bairro " + propriedade.getProp_district() + " não está cadastrado!"));;
+                .orElseThrow(() -> new RuntimeException("O bairro " + propriedade.getProp_district()
+                                                        + " não está cadastrado!"));
 
 
         return preco*calculeArea(propriedade);
