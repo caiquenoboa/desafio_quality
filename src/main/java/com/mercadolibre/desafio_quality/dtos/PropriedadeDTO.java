@@ -1,6 +1,7 @@
 package com.mercadolibre.desafio_quality.dtos;
 
 import com.mercadolibre.desafio_quality.models.Comodo;
+import com.mercadolibre.desafio_quality.models.Propriedade;
 
 import java.util.List;
 
@@ -15,10 +16,9 @@ public class PropriedadeDTO {
     public PropriedadeDTO() {
     }
 
-    //TODO mudar para receber propriedade
-    public PropriedadeDTO(String prop_name, String prop_district, List<ComodoDTO> rooms, double prop_area, double prop_price, ComodoDTO bigger_room) {
-        this.prop_name = prop_name;
-        this.prop_district = prop_district;
+    public PropriedadeDTO(Propriedade propriedade, List<ComodoDTO> rooms, double prop_area, double prop_price, ComodoDTO bigger_room) {
+        this.prop_name = propriedade.getProp_name();
+        this.prop_district = propriedade.getProp_district();
         this.rooms = rooms;
         this.prop_area = prop_area;
         this.prop_price = prop_price;

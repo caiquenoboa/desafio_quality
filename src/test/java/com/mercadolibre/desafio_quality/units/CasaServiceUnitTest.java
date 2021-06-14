@@ -5,17 +5,13 @@ import com.mercadolibre.desafio_quality.models.Comodo;
 import com.mercadolibre.desafio_quality.models.Propriedade;
 import com.mercadolibre.desafio_quality.repositories.BairrosRepository;
 import com.mercadolibre.desafio_quality.services.CasaService;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +21,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class CasaServiceTest {
+class CasaServiceUnitTest {
     @Mock
     private BairrosRepository bairrosRepository;
 
@@ -119,17 +115,58 @@ class CasaServiceTest {
     }
     @Test
     void calculePrice2Test() {
+        when(bairrosRepository.findByName(any())).thenReturn(java.util.Optional.ofNullable(3000.0));
+
+        double d = casaService.calculePrice(propriedade2);
+
+        assertEquals(87000.0, d);
+    }
+    @Test
+    void calculePrice3Test() {
+        when(bairrosRepository.findByName(any())).thenReturn(java.util.Optional.ofNullable(1000.0));
+
+        double d = casaService.calculePrice(propriedade3);
+
+        assertEquals(121500.0, d);
+    }
+
+    @Test
+    void calculePriceNot1Test() {
+        when(bairrosRepository.findByName(any())).thenReturn(java.util.Optional.ofNullable(2000.0));
+
+        double d = casaService.calculePrice(propriedade1);
+
+        assertNotEquals(136500.0, d);
+    }
+    @Test
+    void calculePriceNot2Test() {
+        when(bairrosRepository.findByName(any())).thenReturn(java.util.Optional.ofNullable(3000.0));
+
+        double d = casaService.calculePrice(propriedade2);
+
+        assertNotEquals(87500.0, d);
+    }
+    @Test
+    void calculePriceNot3Test() {
+        when(bairrosRepository.findByName(any())).thenReturn(java.util.Optional.ofNullable(1000.0));
+
+        double d = casaService.calculePrice(propriedade3);
+
+        assertNotEquals(121000.0, d);
+    }
+    @Test
+    void calculePriceNullTest() {
         when(bairrosRepository.findByName(any())).thenReturn(java.util.Optional.ofNullable(null));
-        //casaService.calculePrice(propriedade2);
         assertThrows(RuntimeException.class, () -> casaService.calculePrice(propriedade2));
     }
+
 
     @Test
     void calculeMaiorComodo1Test() {
         ComodoDTO expected = new ComodoDTO("Cozinha", 32);
 
 
-        ComodoDTO comodoDTO = casaService.calculeMaiorComodo(propriedade1);
+        ComodoDTO comodoDTO = casaService.calculeMaiorComodo(propriedade1.getRooms());
 
         assertEquals(expected.toString(), comodoDTO.toString());
 
@@ -139,7 +176,7 @@ class CasaServiceTest {
         ComodoDTO expected = new ComodoDTO("Sala", 12);
 
 
-        ComodoDTO comodoDTO = casaService.calculeMaiorComodo(propriedade2);
+        ComodoDTO comodoDTO = casaService.calculeMaiorComodo(propriedade2.getRooms());
 
         assertEquals(expected.toString(), comodoDTO.toString());
     }
@@ -148,7 +185,7 @@ class CasaServiceTest {
         ComodoDTO expected = new ComodoDTO("Sala de Jantar", 40);
 
 
-        ComodoDTO comodoDTO = casaService.calculeMaiorComodo(propriedade3);
+        ComodoDTO comodoDTO = casaService.calculeMaiorComodo(propriedade3.getRooms());
 
         assertEquals(expected.toString(), comodoDTO.toString());
     }
@@ -158,7 +195,7 @@ class CasaServiceTest {
         ComodoDTO expected = new ComodoDTO("Sala", 20);
 
 
-        ComodoDTO comodoDTO = casaService.calculeMaiorComodo(propriedade1);
+        ComodoDTO comodoDTO = casaService.calculeMaiorComodo(propriedade1.getRooms());
 
         assertNotEquals(expected.getRoom_name(), comodoDTO.getRoom_name());
         assertNotEquals(expected.getRoom_area(), comodoDTO.getRoom_area());
@@ -169,7 +206,7 @@ class CasaServiceTest {
         ComodoDTO expected = new ComodoDTO("Sala", 16);
 
 
-        ComodoDTO comodoDTO = casaService.calculeMaiorComodo(propriedade2);
+        ComodoDTO comodoDTO = casaService.calculeMaiorComodo(propriedade2.getRooms());
 
         assertEquals(expected.getRoom_name(), comodoDTO.getRoom_name());
         assertNotEquals(expected.getRoom_area(), comodoDTO.getRoom_area());
@@ -179,7 +216,7 @@ class CasaServiceTest {
         ComodoDTO expected = new ComodoDTO("Sala", 40);
 
 
-        ComodoDTO comodoDTO = casaService.calculeMaiorComodo(propriedade3);
+        ComodoDTO comodoDTO = casaService.calculeMaiorComodo(propriedade3.getRooms());
 
         assertNotEquals(expected.getRoom_name(), comodoDTO.getRoom_name());
         assertEquals(expected.getRoom_area(), comodoDTO.getRoom_area());
